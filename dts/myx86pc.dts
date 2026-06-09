@@ -1,0 +1,665 @@
+/* itl_generic.dts - Device tree file for itl_generic BSP */
+
+/*
+ * Copyright (C) 2015-2023 Wind River Systems, Inc.
+ *
+ * This file is licensed under the Creative Commons CC0 1.0 Universal Public
+ * Domain Dedication License (CC0-1.0). You may obtain a copy of the License
+ * at:
+ *     https://creativecommons.org/publicdomain/zero/1.0/
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ */
+
+/dts-v1/;
+
+#ifdef INCLUDE_FDT_BOOT_OP
+#include "acpi_export.dtsi"
+#endif
+#include "prjParams.h"
+
+/   {
+    model = "itl_generic";
+    compatible = "itl_generic";
+    #address-cells = <1>;
+    #size-cells = <1>;
+
+    intc: interrupt-controller{
+        interrupt-controller;
+        #interrupt-cells = <5>;
+        max-int-lvl = <255>;
+        };
+
+/*******************************************************************************
+*
+* DRV_IA_PCI_BUS device table entry
+*
+*/
+
+#ifdef DRV_IA_PCI_BUS_INSTANCE_0
+    pciBus0: PNP0A03{
+        };
+#endif /* DRV_IA_PCI_BUS_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_IA_TPM_INSTANCE_0 device table entry
+*
+*/
+
+#ifdef DRV_IA_TPM_INSTANCE_0
+    PNP0C31@fed40000{
+        reg = <DRV_IA_TPM_INSTANCE_0_BASE_ADDR
+               DRV_IA_TPM_INSTANCE_0_REG_INTERVAL>;
+        };
+#endif /* DRV_IA_TPM_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_TIMER_I8253 device table entry
+*
+*/
+
+#ifdef DRV_TIMER_I8253_INSTANCE_0
+    i8253Timer{
+        io = <DRV_TIMER_I8253_INSTANCE_0_BASE_ADRS 0x8>;
+        interrupts = <DRV_TIMER_I8253_INSTANCE_0_INT_VEC
+                      DRV_TIMER_I8253_INSTANCE_0_INT_TYPE
+                      DRV_TIMER_I8253_INSTANCE_0_INT_IOAPIC_PIN
+                      DRV_TIMER_I8253_INSTANCE_0_TRIGGER
+                      DRV_TIMER_I8253_INSTANCE_0_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_TIMER_I8253_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_TIMER_IA_HPET_BUS device table entry
+*
+*/
+
+#ifdef DRV_TIMER_IA_HPET_BUS_INSTANCE_0
+    hpetTimer0:PNP0103@fed00000{
+        reg = <DRV_TIMER_IA_HPET_BUS_INSTANCE_0_BASE_ADRS
+               DRV_TIMER_IA_HPET_BUS_INSTANCE_0_SIZE>;
+        };
+#endif /* DRV_TIMER_IA_HPET_BUS_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_TIMER_IA_TIMESTAMP device table entry
+*
+*/
+
+#ifdef DRV_TIMER_IA_TIMESTAMP_INSTANCE_0
+    iaTimestamp{
+        };
+#endif /* DRV_TIMER_IA_TIMESTAMP_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* PMU device table entry
+*
+*/
+
+#if defined( INCLUDE_HPC_I86_ARCH_PM )
+    iaPmu{
+        };
+#endif
+
+/*******************************************************************************
+*
+* DRV_TIMER_LOAPIC device table entry
+*
+*/
+
+#ifdef DRV_TIMER_LOAPIC_INSTANCE_0
+    loApicTimer@fee00000{
+        reg = <DRV_TIMER_LOAPIC_INSTANCE_0_BASE_ADDR
+               0x1000>;
+        interrupts = <DRV_TIMER_LOAPIC_INSTANCE_0_INT_VEC
+                      DRV_TIMER_LOAPIC_INSTANCE_0_INT_TYPE
+                      DRV_TIMER_LOAPIC_INSTANCE_0_INT_IOAPIC_PIN
+                      DRV_TIMER_LOAPIC_INSTANCE_0_TRIGGER
+                      DRV_TIMER_LOAPIC_INSTANCE_0_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_TIMER_LOAPIC_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_TIMER_MC146818 device table entry
+*
+*/
+
+#ifdef DRV_TIMER_MC146818_INSTANCE_0
+   mc146818Rtc0{
+        compatible = "PNP0B00";
+        io = <DRV_TIMER_MC146818_INSTANCE_0_BASE_ADRS 0x3f>;
+        interrupts = <DRV_TIMER_MC146818_INSTANCE_0_INT_VEC
+                      DRV_TIMER_MC146818_INSTANCE_0_INT_TYPE
+                      DRV_TIMER_MC146818_INSTANCE_0_INT_IOAPIC_PIN
+                      DRV_TIMER_MC146818_INSTANCE_0_TRIGGER
+                      DRV_TIMER_MC146818_INSTANCE_0_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_TIMER_MC146818_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_SIO_IA_NS16550
+*
+*/
+
+#ifdef DRV_SIO_IA_FDT_NS16550
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_0
+    serial0{
+        compatible = "PNP0501";
+        io = <DRV_SIO_IA_NS16550_INSTANCE_0_BASE_ADDR 0x8>;
+        interrupts = <DRV_SIO_IA_NS16550_INSTANCE_0_INT_VEC
+                      DRV_SIO_IA_NS16550_INSTANCE_0_INT_TYPE
+                      DRV_SIO_IA_NS16550_INSTANCE_0_INT_IOAPIC_PIN
+                      DRV_SIO_IA_NS16550_INSTANCE_0_TRIGGER
+                      DRV_SIO_IA_NS16550_INSTANCE_0_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_0 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_1
+    serial1{
+        compatible = "PNP0501";
+        io = <DRV_SIO_IA_NS16550_INSTANCE_1_BASE_ADDR 0x8>;
+        interrupts = <DRV_SIO_IA_NS16550_INSTANCE_1_INT_VEC
+                      DRV_SIO_IA_NS16550_INSTANCE_1_INT_TYPE
+                      DRV_SIO_IA_NS16550_INSTANCE_1_INT_IOAPIC_PIN
+                      DRV_SIO_IA_NS16550_INSTANCE_1_TRIGGER
+                      DRV_SIO_IA_NS16550_INSTANCE_1_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_1 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_2
+    serial2{
+        compatible = "PNP0501";
+        io = <DRV_SIO_IA_NS16550_INSTANCE_2_BASE_ADDR 0x8>;
+        interrupts = <DRV_SIO_IA_NS16550_INSTANCE_2_INT_VEC
+                      DRV_SIO_IA_NS16550_INSTANCE_2_INT_TYPE
+                      DRV_SIO_IA_NS16550_INSTANCE_2_INT_IOAPIC_PIN
+                      DRV_SIO_IA_NS16550_INSTANCE_2_TRIGGER
+                      DRV_SIO_IA_NS16550_INSTANCE_2_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_2 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_3
+    serial3{
+        compatible = "PNP0501";
+        io = <DRV_SIO_IA_NS16550_INSTANCE_3_BASE_ADDR 0x8>;
+        interrupts = <DRV_SIO_IA_NS16550_INSTANCE_3_INT_VEC
+                      DRV_SIO_IA_NS16550_INSTANCE_3_INT_TYPE
+                      DRV_SIO_IA_NS16550_INSTANCE_3_INT_IOAPIC_PIN
+                      DRV_SIO_IA_NS16550_INSTANCE_3_TRIGGER
+                      DRV_SIO_IA_NS16550_INSTANCE_3_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_3 */
+
+#endif /* DRV_SIO_IA_FDT_NS16550 */
+
+/*******************************************************************************
+*
+* DRV_VGA_M6845, DRV_CONSOLE_EFI device table entry
+*
+*/
+
+#ifdef DRV_VGA_M6845_INSTANCE_0
+    vxbM6845Vga@b8000{
+        io = <DRV_VGA_M6845_INSTANCE_0_REG_BASE_ADRS 0x2>;
+        reg = <DRV_VGA_M6845_INSTANCE_0_MEM_BASE_ADRS 0x1000>;
+        };
+#endif /* DRV_VGA_M6845_INSTANCE_0 */
+
+#ifdef DRV_CONSOLE_EFI_INSTANCE_0
+     vxbEfiConsole{
+         };
+#endif /* DRV_CONSOLE_EFI_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* DRV_KBD_I8042 device table entry
+*
+*/
+
+#ifdef DRV_KBD_I8042_INSTANCE_0
+    kbdI8042: PNP0303{
+        io = <DRV_KBD_I8042_INSTANCE_0_BASE_ADRS 0x4>;
+        interrupts = <DRV_KBD_I8042_INSTANCE_0_INT_VEC
+                      DRV_KBD_I8042_INSTANCE_0_INT_TYPE
+                      DRV_KBD_I8042_INSTANCE_0_INT_IOAPIC_PIN
+                      DRV_KBD_I8042_INSTANCE_0_TRIGGER
+                      DRV_KBD_I8042_INSTANCE_0_POLARITY>;
+        interrupt-parent = <&intc>;
+        };
+#endif /* DRV_KBD_I8042_INSTANCE_0 */
+
+/*******************************************************************************
+*
+* VNIC device table entries
+*
+*/
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_0
+    vnic@0
+        {
+	reg = <0 0>;
+	compatible = "wr,vnic";
+	vnet = <0>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_0_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_0_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+	interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_0 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_1
+    vnic@1
+        {
+	reg = <1 0>;
+	compatible = "wr,vnic";
+	vnet = <1>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_1_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_1_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_1 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_2
+    vnic@2
+        {
+	reg = <2 0>;
+	compatible = "wr,vnic";
+	vnet = <2>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_2_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_2_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_2 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_3
+    vnic@3
+        {
+	reg = <3 0>;
+	compatible = "wr,vnic";
+	vnet = <3>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_3_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_3_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_3 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_4
+    vnic@4
+        {
+	reg = <4 0>;
+	compatible = "wr,vnic";
+	vnet = <4>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_4_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_4_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_4 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_5
+    vnic@5
+        {
+	reg = <5 0>;
+	compatible = "wr,vnic";
+	vnet = <5>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_5_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_5_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_5 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_6
+    vnic@6
+        {
+	reg = <6 0>;
+	compatible = "wr,vnic";
+	vnet = <6>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_6_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_6_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_6 */
+
+#ifdef VXB_VNIC_SM_END_INSTANCE_7
+    vnic@7
+        {
+	reg = <7 0>;
+	compatible = "wr,vnic";
+	vnet = <7>;
+        interrupts = <VXB_VNIC_SM_END_INSTANCE_7_INT_VEC
+                      VXB_VNIC_SM_END_INSTANCES_TYPE
+                      VXB_VNIC_SM_END_INSTANCE_7_INT_IOAPIC_PIN
+                      VXB_VNIC_SM_END_INSTANCES_TRIGGER
+                      VXB_VNIC_SM_END_INSTANCES_POLARITY>;
+        interrupt-parent = <&intc>;
+	};
+#endif /* VXB_VNIC_SM_END_INSTANCE_7 */
+
+/*******************************************************************************
+*
+* end VNIC deviec table entries
+*
+*/
+
+    chosen{
+        bootargs = DEFAULT_BOOT_LINE;
+
+#ifdef DRV_IA_TPM_INSTANCE_0
+        tpmConfig{
+            tpmConfig0{
+                node = <0>;
+                ios-dev-name = DRV_TPM_INSTANCE_DEV_NAME;
+                };
+         };
+#endif /* DRV_IA_TPM_INSTANCE_0 */
+
+        serialConfig{
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_0
+            serialConfig0{
+                node = <0>;
+                clock-frequency = <DRV_SIO_IA_NS16550_INSTANCE_CLK_FREQ>;
+                baud-rate = <DRV_SIO_IA_NS16550_INSTANCE_BAUD_RATE>;
+                fifo-size = <DRV_SIO_IA_NS16550_INSTANCE_FIFO_LEN>;
+                reg-delta = <DRV_SIO_IA_NS16550_INSTANCE_REG_INTERVAL>;
+                };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_0 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_1
+             serialConfig1{
+                node = <1>;
+                clock-frequency = <DRV_SIO_IA_NS16550_INSTANCE_CLK_FREQ>;
+                baud-rate = <DRV_SIO_IA_NS16550_INSTANCE_BAUD_RATE>;
+                fifo-size = <DRV_SIO_IA_NS16550_INSTANCE_FIFO_LEN>;
+                reg-delta = <DRV_SIO_IA_NS16550_INSTANCE_REG_INTERVAL>;
+                };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_1 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_2
+            serialConfig2{
+                node = <2>;
+                clock-frequency = <DRV_SIO_IA_NS16550_INSTANCE_CLK_FREQ>;
+                baud-rate = <DRV_SIO_IA_NS16550_INSTANCE_BAUD_RATE>;
+                fifo-size = <DRV_SIO_IA_NS16550_INSTANCE_FIFO_LEN>;
+                reg-delta = <DRV_SIO_IA_NS16550_INSTANCE_REG_INTERVAL>;
+                };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_2 */
+
+#ifdef DRV_SIO_IA_NS16550_INSTANCE_3
+            serialConfig3{
+                node = <3>;
+                clock-frequency = <DRV_SIO_IA_NS16550_INSTANCE_CLK_FREQ>;
+                baud-rate = <DRV_SIO_IA_NS16550_INSTANCE_BAUD_RATE>;
+                fifo-size = <DRV_SIO_IA_NS16550_INSTANCE_FIFO_LEN>;
+                reg-delta = <DRV_SIO_IA_NS16550_INSTANCE_REG_INTERVAL>;
+                };
+#endif /* DRV_SIO_IA_NS16550_INSTANCE_3 */
+
+        };
+
+        vgaM6845Config{
+
+#ifdef DRV_VGA_M6845_INSTANCE_0
+            vgaM6845Config0{
+                node = <0>;
+                color-mode = <DRV_VGA_M6845_INSTANCE_0_COLOR_MODE>;
+                color-setting = <DRV_VGA_M6845_INSTANCE_0_COLOR_SETTING>;
+                };
+#endif /* DRV_VGA_M6845_INSTANCE_0 */
+
+        };
+
+        kbdI8042Config{
+
+#ifdef DRV_KBD_I8042_INSTANCE_0
+            kbdI8042Config0{
+                node = <0>;
+                mode = <DRV_KBD_I8042_INSTANCE_0_MODE>;
+                };
+#endif /* DRV_KBD_I8042_INSTANCE_0 */
+
+        };
+
+        pciBusConfig{
+
+#ifdef DRV_IA_PCI_BUS_INSTANCE_0
+            pciBusConfig0{
+                node = <0>;
+                bus-start = <0>;
+                bus-end = <255>;
+                };
+#endif /* DRV_IA_PCI_BUS_INSTANCE_0 */
+
+        };
+
+        i8253Config{
+
+#ifdef DRV_TIMER_I8253_INSTANCE_0
+            i8253ConfigConfig0{
+                node = <0>;
+                timer-mode = <DRV_TIMER_I8253_INSTANCE_0_TIMER_MODE>;
+                min-freq = <DRV_TIMER_I8253_INSTANCE_0_MIN_FREQ>;
+                max-freq = <DRV_TIMER_I8253_INSTANCE_0_MAX_FREQ>;
+                clk-freq = <DRV_TIMER_I8253_INSTANCE_0_CLK_FREQ>;
+                };
+#endif /* DRV_TIMER_I8253_INSTANCE_0 */
+
+        };
+
+        hpetBusConfig{
+
+#ifdef DRV_TIMER_IA_HPET_BUS_INSTANCE_0
+            hpetBusConfig0{
+                node = <0>;
+                };
+
+#endif /* DRV_TIMER_IA_HPET_BUS_INSTANCE_0 */
+        };
+
+        hpetTimerConfig{
+
+#ifdef DRV_TIMER_IA_HPET_INSTANCE_0
+            hpetTimerConfig0{
+                node = <0>;
+                mode = <DRV_TIMER_IA_HPET_INSTANCE_0_MODE>;
+                min-freq = <DRV_TIMER_IA_HPET_INSTANCE_0_MIN_FREQ>;
+                max-freq = <DRV_TIMER_IA_HPET_INSTANCE_0_MAX_FREQ>;
+                int-type = <DRV_TIMER_IA_HPET_INSTANCE_0_INT_TYPE>;
+                io-apic-int-pin = <DRV_TIMER_IA_HPET_INSTANCE_0_INT_IOAPIC_PIN>;
+                int-vec = <DRV_TIMER_IA_HPET_INSTANCE_0_INT_VEC>;
+                int-trigger = <DRV_TIMER_IA_HPET_INSTANCE_0_TRIGGER>;
+                int-polarity = <DRV_TIMER_IA_HPET_INSTANCE_0_POLARITY>;
+                periodic-sync = <DRV_TIMER_IA_HPET_INSTANCE_0_PERIODIC_SYNC>;
+                };
+#endif /* DRV_TIMER_IA_HPET_INSTANCE_0 */
+
+#ifdef DRV_TIMER_IA_HPET_INSTANCE_1
+            hpetTimerConfig1{
+                node = <1>;
+                mode = <DRV_TIMER_IA_HPET_INSTANCE_1_MODE>;
+                min-freq = <DRV_TIMER_IA_HPET_INSTANCE_1_MIN_FREQ>;
+                max-freq = <DRV_TIMER_IA_HPET_INSTANCE_1_MAX_FREQ>;
+                int-type = <DRV_TIMER_IA_HPET_INSTANCE_1_INT_TYPE>;
+                io-apic-int-pin = <DRV_TIMER_IA_HPET_INSTANCE_1_INT_IOAPIC_PIN>;
+                int-vec = <DRV_TIMER_IA_HPET_INSTANCE_1_INT_VEC>;
+                int-trigger = <DRV_TIMER_IA_HPET_INSTANCE_1_TRIGGER>;
+                int-polarity = <DRV_TIMER_IA_HPET_INSTANCE_1_POLARITY>;
+                periodic-sync = <DRV_TIMER_IA_HPET_INSTANCE_1_PERIODIC_SYNC>;
+                };
+#endif /* DRV_TIMER_IA_HPET_INSTANCE_1 */
+
+#ifdef DRV_TIMER_IA_HPET_INSTANCE_2
+            hpetTimerConfig2{
+                node = <2>;
+                mode = <DRV_TIMER_IA_HPET_INSTANCE_2_MODE>;
+                min-freq = <DRV_TIMER_IA_HPET_INSTANCE_2_MIN_FREQ>;
+                max-freq = <DRV_TIMER_IA_HPET_INSTANCE_2_MAX_FREQ>;
+                int-type = <DRV_TIMER_IA_HPET_INSTANCE_2_INT_TYPE>;
+                io-apic-int-pin = <DRV_TIMER_IA_HPET_INSTANCE_2_INT_IOAPIC_PIN>;
+                int-vec = <DRV_TIMER_IA_HPET_INSTANCE_2_INT_VEC>;
+                int-trigger = <DRV_TIMER_IA_HPET_INSTANCE_2_TRIGGER>;
+                int-polarity = <DRV_TIMER_IA_HPET_INSTANCE_2_POLARITY>;
+                periodic-sync = <DRV_TIMER_IA_HPET_INSTANCE_2_PERIODIC_SYNC>;
+                };
+#endif /* DRV_TIMER_IA_HPET_INSTANCE_2 */
+
+#ifdef DRV_TIMER_IA_HPET_INSTANCE_MAIN
+            hpetTimerConfigMain{
+                node = <0xffffffff>;
+                };
+#endif /* DRV_TIMER_IA_HPET_INSTANCE_MAIN */
+
+        };
+
+        iaTimestampConfig{
+
+#ifdef DRV_TIMER_IA_TIMESTAMP_INSTANCE_0
+            iaTimestampConfig0{
+                node = <0>;
+                clk-freq = <DRV_TIMER_IA_TIMESTAMP_INSTANCE_0_CLK_FREQ>;
+                invariant-only = <DRV_TIMER_IA_TIMESTAMP_INSTANCE_0_INVARIANT_ONLY>;
+                };
+#endif /* DRV_TIMER_IA_TIMESTAMP_INSTANCE_0 */
+
+        };
+
+        iaPmu{
+
+#if defined( INCLUDE_HPC_I86_ARCH_PM )
+            iaPmu{
+                node = <0>;
+                };
+#endif /* INCLUDE_HPC_I86_ARCH_PM */
+
+        };
+
+        loApicTimerConfig{
+
+#ifdef DRV_TIMER_LOAPIC_INSTANCE_0
+            loApicTimerConfig0{
+                node = <0>;
+                min-freq = <DRV_TIMER_LOAPIC_INSTANCE_0_MIN_FREQ>;
+                max-freq = <DRV_TIMER_LOAPIC_INSTANCE_0_MAX_FREQ>;
+                clk-freq = <DRV_TIMER_LOAPIC_INSTANCE_0_CLK_FREQ>;
+                deadline-enable = <DRV_TIMER_LOAPIC_INSTANCE_0_DEADLINE_ENABLE>;
+            };
+#endif /* DRV_TIMER_LOAPIC_INSTANCE_0 */
+
+        };
+
+        mc146818RtcConfig{
+
+#ifdef DRV_TIMER_MC146818_INSTANCE_0
+            mc146818RtcConfig0{
+                node = <0>;
+                min-freq = <DRV_TIMER_MC146818_INSTANCE_0_MIN_FREQ>;
+                max-freq = <DRV_TIMER_MC146818_INSTANCE_0_MAX_FREQ>;
+                clk-freq = <DRV_TIMER_MC146818_INSTANCE_0_CLK_FREQ>;
+                };
+#endif /* DRV_TIMER_MC146818_INSTANCE_0 */
+
+        };
+
+        sataConfig{
+
+#if defined( INCLUDE_DRV_STORAGE_PIIX ) || defined( PCI_DRV_STORAGE_AHCI )
+            sataConfig0{
+                node = <0>;
+                detect-timeout = "30s";
+                cmd-timeout = "30s";
+                };
+#endif
+
+        };
+
+#ifdef DRV_PINMUX_IA
+        iomuxConfig{
+            iomuxConfig3{
+                node = <3>;
+
+                sdcard0: sdcard0
+                    {
+                    pin-set = <
+                    /* muxCtl muxVal */
+
+                    0x5d0 0x42000500
+                    0x5e0 0x42000500
+                    0x5a0 0x44000400
+                    0x5d8 0x44000402
+                    0x5b0 0x44000402
+                    0x5b8 0x44000402
+                    0x5c0 0x44000402
+                    0x5c8 0x44000402
+                    >;
+                    };
+
+            };
+        };
+#endif /* DRV_PINMUX_IA */
+        devparam {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            pciSdhc@0 {
+#ifdef DRV_PINMUX_IA
+                pinmux-0 = <&sdcard0>;
+                gpio_cd = <0xd0c005d0>;
+                cd_offset = <0x1>;
+#endif /* DRV_PINMUX_IA */
+                no-sd = <0>;    /* if 1, do not send SD special commands */
+                reg = <0>;      /* dummy */
+                };
+            };
+        };
+
+#ifdef INCLUDE_HVIF_653
+        WRSFRM0{
+            compatible = "WRFRMSCH";
+            interrupts = <0xde /* Expected to be overwritten by HV queried value */
+                          1 0 0 0>;
+            interrupt-parent = <&intc>;
+            };
+
+        WRSSIPC0{
+            compatible = "WRSIPC";
+            interrupts = <0xdf /* Expected to be overwritten by HV queried value */
+                          1 0 0 0>;
+            interrupt-parent = <&intc>;
+            };
+#endif /* INCLUDE_HVIF_653 */
+    };
+

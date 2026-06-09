@@ -46,7 +46,6 @@ vxprj vip component add $VIP_NAME INCLUDE_GETOPT
 vxprj vip component add $VIP_NAME INCLUDE_STANDALONE_DTB
 vxprj vip component add $VIP_NAME INCLUDE_IPWRAP_IFCONFIG
 vxprj vip component add $VIP_NAME INCLUDE_IFCONFIG
-#vxprj vip parameter set $VIP_NAME IFCONFIG_1 '"ifname gem0","devname gem","inet '"${TARGET_IP}"'/'"${NETMASKCIDR}"'","gateway '"${GATEWAY_IP}"'"'
 vxprj vip parameter set $VIP_NAME IFCONFIG_1 '"ifname gei0","devname gem","inet '"${TARGET_IP}"'/'"${NETMASKCIDR}"'","gateway '"${GATEWAY_IP}"'"'
 vxprj vip component add $VIP_NAME INCLUDE_IPATTACH
 vxprj vip component add $VIP_NAME INCLUDE_PING
@@ -56,7 +55,7 @@ vxprj vip component add $VIP_NAME INCLUDE_ROUTECMD
 vxprj vip component add $VIP_NAME INCLUDE_IPROUTE_CMD
 vxprj vip component add $VIP_NAME INCLUDE_VXBUS_SHOW
 vxprj vip component add $VIP_NAME DRV_TEMPLATE_FDT_MAP
-#vxprj vip component add $VIP_NAME DRV_QSPI_FDT_ZYNQMP
+vxprj vip component add $VIP_NAME INCLUDE_UNIX
 
 # Filesystem
 vxprj vip component add $VIP_NAME INCLUDE_SD_BUS
