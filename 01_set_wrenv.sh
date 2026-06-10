@@ -15,7 +15,7 @@ export DTS_FILENAME=${PROJECT_NAME}
 export DTS_FILE=${DTS_FILENAME}.dts
 
 # set this section for your target network
-export TARGET_IP=192.168.12.35
+export TARGET_IP=192.168.12.32
 export SERVER_IP=192.168.12.51
 export GATEWAY_IP=192.168.12.1
 export NETMASK=255.255.255.0

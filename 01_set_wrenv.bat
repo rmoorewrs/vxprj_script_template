@@ -18,7 +18,7 @@ set DTS_FILE=%DTS_FILENAME%.dts
 
 
 # set this section for your target network
-set TARGET_IP=192.168.12.35
+set TARGET_IP=192.168.12.32
 set SERVER_IP=192.168.12.51
 set GATEWAY_IP=192.168.12.1
 set NETMASK=255.255.255.0
