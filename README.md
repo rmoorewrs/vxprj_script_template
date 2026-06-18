@@ -11,49 +11,41 @@ The scripts will work on both Windows and supported Linux development hosts.
 ## Prerequisites: 
 - Valid VxWorks installation on a Windows or Linux host
 - Board Support Package name. See instructions below on how to get the exact correct BSP name
-- edit the `01_set_wrenv.bat` or `01_set_wrenv.sh` to match your installation
+
 
 
 ## Instructions:
 
-### 0) Edit the 02_create_vip
+### 1) Edit the 01_set_wrenv.sh or 01_set_wrenv.bat
+Make sure and update these parameters:
+- version of VxWorks
+- name and version of the BSP you're using
+- name of the custom DTS file (if any)
+- IP parameters for the development network you're using
 
-### 1) Change directory into the `ws` workspace
+
+### 2) Run the `01_set_srenv.sh` script or batch file to create a VxWorks development shell
 
 ```
-cd zcu102-demo/ws
-```
-
-### 2) Set up the environment variables for VxWorks
-
-```
-. ../set_wrenv_2503.sh
-```
-
- Alternately, run 
- ```
- <path-to-vxworks-install>/wrenv.sh -p vxworks/25.03     # use your path, your version
- ```
-
-### 3) Run the A53 creation script
-```
-../create_zynqmp_a53.sh
+./01_set_wrenv.sh
 ```
 
-### 4) Run the R5 creation script
+### 3) Run the `02_create_vsb_vip.sh` script to build the project
 ```
-../create_zynqmp_r5.sh
+./02_create_vsb_vip.sh
 ```
+
 
 ### 5) Optional: import the VSB and VIP projects into Workbench. Import the VSBs first. 
 
-Import 4 projects: 
-- zynqmp_r5-vsb
-- zynqmp_r5-vip
-- zynqmp_a53-vsb
-- zynqmp_a53-vip
+Open workbench and use the "workspce" directory just created by the `02` script as your Eclipse workspace. 
 
-In order to import in workbench do the following:
+Import 2 projects: 
+- myx86pc-vsb
+- myx86pc-vip
+
+
+In order to import these projects in workbench do the following:
 ```
 File->Import->VxWorks->VxWorks VSB
 ```
@@ -67,7 +59,7 @@ Examples assume VxWorks 26.03, substitute your version
 
 Windows cmd shell:
 ```
-<VxWorks_Install_Dir>\wrenv.exe -p vxworks/26.03 bash
+<VxWorks_Install_Dir>\wrenv.exe -p vxworks/26.03 bash # use your version number in place of 26.03
 env | grep WIND
 ```
 
