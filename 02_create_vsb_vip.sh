@@ -57,14 +57,14 @@ vxprj vip component add $VIP_NAME INCLUDE_IPROUTE_CMD
 vxprj vip component add $VIP_NAME INCLUDE_VXBUS_SHOW
 vxprj vip component add $VIP_NAME DRV_TEMPLATE_FDT_MAP
 vxprj vip component add $VIP_NAME INCLUDE_USB
-vxprj vip component add $VIP_NAME INCLUDE_EHCI
-vxprj vip parameter set $VIP_NAME INCLUDE_EHCI_INIT
-vxprj vip parameter set $VIP_NAME INCLUDE_OHCI
-vxprj vip parameter set $VIP_NAME INCLUDE_OHCI_INIT
-vxprj vip parameter set $VIP_NAME INCLUDE_UHCI
-vxprj vip parameter set $VIP_NAME INCLUDE_UHCI_INIT
-vxprj vip parameter set $VIP_NAME INCLUDE_XHCI
-vxprj vip parameter set $VIP_NAME INCLUDE_XHCI_INIT
+# vxprj vip component add $VIP_NAME INCLUDE_EHCI
+# vxprj vip parameter set $VIP_NAME INCLUDE_EHCI_INIT
+# vxprj vip parameter set $VIP_NAME INCLUDE_OHCI
+# vxprj vip parameter set $VIP_NAME INCLUDE_OHCI_INIT
+# vxprj vip parameter set $VIP_NAME INCLUDE_UHCI
+# vxprj vip parameter set $VIP_NAME INCLUDE_UHCI_INIT
+# vxprj vip parameter set $VIP_NAME INCLUDE_XHCI
+# vxprj vip parameter set $VIP_NAME INCLUDE_XHCI_INIT
 vxprj vip component add $VIP_NAME INCLUDE_UNIX
 vxprj vip component add $VIP_NAME INCLUDE_ZLIB
 vxprj vip component add $VIP_NAME INCLUDE_PC_CONSOLE
