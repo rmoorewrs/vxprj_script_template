@@ -1,12 +1,63 @@
 # edit these parameters to match your setup 
 
+# First, uncomment exactly ONE version of VxWorks and edit the path to match your host
 
-# Set VxWorks version and install path
+# Set version and install path for VxWorks 21.03
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2103
+# export VXWORKS_VERSION=21.03
+# export BSP_NAME=itl_generic_2_0_3_1
+
+# Set version and install path for VxWorks 21.07
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2107
+# export VXWORKS_VERSION=21.07
+# export BSP_NAME=itl_generic_2_0_3_2
+
+# Set version and install path for VxWorks 21.11
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2111
+# export VXWORKS_VERSION=21.11
+# export BSP_NAME=itl_generic_3_0_0_0
+
+# Set version and install path for VxWorks 22.03
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2203
+# export VXWORKS_VERSION=22.03
+# export BSP_NAME=itl_generic_3_0_0_1
+
+# Set version and install path for VxWorks 22.09
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2209
+# export VXWORKS_VERSION=22.09
+# export BSP_NAME=itl_generic_3_0_0_2
+
+# Set version and install path for VxWorks 23.03
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2303
+# export VXWORKS_VERSION=23.03
+# export BSP_NAME=itl_generic_3_0_0_3
+
+# Set version and install path for VxWorks 23.09
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2309
+# export VXWORKS_VERSION=23.09
+# export BSP_NAME=itl_generic_3_0_0_3
+
+# Set version and install path for VxWorks 24.03
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2403
+# export VXWORKS_VERSION=24.03
+# export BSP_NAME=itl_generic_3_0_0_4
+
+# Set version and install path for VxWorks 24.07
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2407
+# export VXWORKS_VERSION=24.07
+# export BSP_NAME=itl_generic_3_0_0_4
+
+# Set version and install path for VxWorks 25.03
+# export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2503
+# export VXWORKS_VERSION=25.03
+# export BSP_NAME=itl_generic_3_0_0_4
+
+# Set version and install path for VxWorks 25.09
 # export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2509
 # export VXWORKS_VERSION=25.09
 # export BSP_NAME=itl_generic_3_0_0_4
 
-# Set VxWorks version and install path
+# Set version and install path for VxWorks 26.03
 export VXWORKS_INSTALL_PATH=/opt/wr/vx/vx2603
 export VXWORKS_VERSION=26.03
 export BSP_NAME=itl_generic_3_0_0_5
@@ -17,8 +68,8 @@ export WORKSPACE_DIR=workspace
 export VSB_NAME=${PROJECT_NAME}-vsb
 export VIP_NAME=${PROJECT_NAME}-vip
 # this is so you can use a custom DTS file for your specific board and/or configuration
-export DTS_FILENAME=my_custom_dts_file
-export DTS_FILE=${DTS_FILENAME}.dts
+# note that the file $DTS_FILE must exist in the dts/ directory or the VIP will fail
+export DTS_FILE=my_custom_dts_file.dts
  
 
 # set this section for your target network
