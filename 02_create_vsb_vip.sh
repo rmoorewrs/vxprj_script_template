@@ -56,28 +56,26 @@ vxprj vip component add $VIP_NAME INCLUDE_ROUTECMD
 vxprj vip component add $VIP_NAME INCLUDE_IPROUTE_CMD
 vxprj vip component add $VIP_NAME INCLUDE_VXBUS_SHOW
 vxprj vip component add $VIP_NAME DRV_TEMPLATE_FDT_MAP
-vxprj vip component add $VIP_NAME INCLUDE_USB
-# vxprj vip component add $VIP_NAME INCLUDE_EHCI
-# vxprj vip parameter set $VIP_NAME INCLUDE_EHCI_INIT
-# vxprj vip parameter set $VIP_NAME INCLUDE_OHCI
-# vxprj vip parameter set $VIP_NAME INCLUDE_OHCI_INIT
-# vxprj vip parameter set $VIP_NAME INCLUDE_UHCI
-# vxprj vip parameter set $VIP_NAME INCLUDE_UHCI_INIT
-# vxprj vip parameter set $VIP_NAME INCLUDE_XHCI
-# vxprj vip parameter set $VIP_NAME INCLUDE_XHCI_INIT
 vxprj vip component add $VIP_NAME INCLUDE_UNIX
 vxprj vip component add $VIP_NAME INCLUDE_ZLIB
 vxprj vip component add $VIP_NAME INCLUDE_PC_CONSOLE
 vxprj vip component add $VIP_NAME DRV_KBD_USB
 vxprj vip component add $VIP_NAME DRV_CONSOLE_EFI
 
-
-# Filesystem
+# Filesystem, Storage Drivers, USB/SATA/SD Card etc
+vxprj vip component add $VIP_NAME INCLUDE_DEVICE_MANAGER
+vxprj vip component add $VIP_NAME PCI_DRV_STORAGE_AHCI
+vxprj vip component add $VIP_NAME DRV_STORAGE_ATA_HOST
+vxprj vip component add $VIP_NAME INCLUDE_USB
 vxprj vip component add $VIP_NAME INCLUDE_SD_BUS
+vxprj vip component add $VIP_NAME DRV_PCI_SDHC_CTRL
+vxprj vip component add $VIP_NAME DRV_MMCSTORAGE_CARD
+vxprj vip component add $VIP_NAME DRV_SDSTORAGE_CARD
+vxprj vip component add $VIP_NAME DRV_SPI_SDMMC
+vxprj vip component add $VIP_NAME DRV_COMMON_SDHC_CTRL
 vxprj vip component add $VIP_NAME INCLUDE_USB_GEN2_STORAGE_INIT
 vxprj vip component add $VIP_NAME INCLUDE_XBD_BLK_DEV
 vxprj vip component add $VIP_NAME INCLUDE_XBD_PART_LIB
-vxprj vip component add $VIP_NAME DRV_MMCSTORAGE_CARD
 vxprj vip component add $VIP_NAME INCLUDE_DOSFS
 vxprj vip component add $VIP_NAME INCLUDE_DOSFS_DIR_VFAT
 vxprj vip parameter set $VIP_NAME DOSFS_COMPAT_NT 'FALSE'
@@ -98,12 +96,13 @@ vxprj vip component add $VIP_NAME INCLUDE_VXBUS_SHOW
 vxprj vip component add $VIP_NAME INCLUDE_VXEVENTS
 
 # copy and specify the project DTS file
-echo Using custom DTS file $DTS_DIR/$DTS_FILE
-vxprj vip parameter set $VIP_NAME $DTS_FILE "$DTS_FILE"
-cp $DTS_DIR/$DTS_FILE ${BSP_NAME}/$DTS_FILE
+echo Using custom DTS file ${DTS_DIR}/${CUSTOM_DTS_FILENAME}
+cp ${DTS_DIR}/${CUSTOM_DTS_FILENAME} ${BSP_NAME}/${CUSTOM_DTS_FILENAME}
+vxprj vip parameter set ${VIP_NAME} DTS_FILE "${CUSTOM_DTS_FILENAME}"
+
 
 # build the project
 vxprj vip build 
-cd $MY_WS_DIR
+cd ${MY_WS_DIR}
 
 echo Done
